@@ -1,0 +1,18 @@
+# cucumber will execute default profile if profile not defined in terminal
+# 'standart_opts' is a best practise to omit repetitive code in yml file
+
+<% standart_opts = "--format junit --out junit_format --format html --out report.html --format pretty" %>
+
+default: --format junit --out junit_format --tags @zip_code
+
+zip_code: <%= standart_opts %> --tags @zip_code
+ssh: <%= standart_opts %> --tags @ssh
+api: <%= standart_opts %> --tags @api
+active: <%= standart_opts %> --tags @active
+basic: --format junit --out junit_format <%= standart_opts %> --tags @basic
+api: <%= standart_opts %> --tags @api
+
+#execute all scenarios marked with tag @active AND @basic (scenario SHOULD have both tags)
+basic_and_active: <%= standart_opts %> --tags @active --tags @basic
+#execute all scenarios marked with tag @active OR @basic (scenario SHOULD have one of listed tags)
+basic_or_active: <%= standart_opts %> --tags @active,@basic
